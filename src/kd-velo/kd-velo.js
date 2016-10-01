@@ -1,5 +1,4 @@
-  Polymer({
+Polymer({
     is: 'kd-velo',
-    properties: {
-    }
-  });
+    properties: {}
+});

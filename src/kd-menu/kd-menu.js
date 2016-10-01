@@ -1,6 +1,3 @@
-/**
- * Created by porrito on 9/09/16.
- */
 Polymer({
     is: 'kd-menu',
     properties: {

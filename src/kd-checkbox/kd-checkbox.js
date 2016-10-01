@@ -1,13 +1,13 @@
-  Polymer({
+Polymer({
     is: 'kd-checkbox',
     properties: {
-    	value: {
-    		type: Boolean,
-    		value: false
-    	}
+        value: {
+            type: Boolean,
+            value: false
+        }
     },
-	onChange: function(e) {
-		e.stopPropagation();
-		this.fire('change');
-	}
-  });
+    onChange: function (e) {
+        e.stopPropagation();
+        this.fire('change');
+    }
+});
