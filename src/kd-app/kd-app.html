@@ -1,0 +1,57 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<link rel="import" href="../../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="../../bower_components/app-layout/app-drawer/app-drawer.html">
+<link rel="import" href="../../bower_components/app-layout/app-header-layout/app-header-layout.html">
+<link rel="import" href="../../bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
+<link rel="import" href="../../bower_components/app-layout/app-header/app-header.html">
+<link rel="import" href="../../bower_components/app-layout/app-scroll-effects/effects/waterfall.html">
+
+<link rel="import" href="../../bower_components/paper-styles/color.html">
+<link rel="import" href="../../bower_components/paper-styles/default-theme.html">
+<link rel="import" href="../../bower_components/paper-styles/shadow.html">
+<link rel="import" href="../../bower_components/paper-styles/typography.html">
+
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+
+<link rel="import" href="../behaviors/kd-base.html">
+
+<link rel="import" href="../kd-menu/kd-menu.html">
+<link rel="import" href="../kd-tabla/kd-tabla.html">
+
+<dom-module id="kd-app">
+    <template>
+        <style>
+            /* local DOM styles go here */
+            :host {
+            }
+        </style>
+
+        <!-- local DOM goes here -->
+        <app-drawer-layout>
+            <app-drawer>
+                <kd-menu menu="[[config.menu]]" on-accion="onAccion"></kd-menu>
+            </app-drawer>
+
+            <app-header-layout>
+                <app-header reveals effects="waterfall">
+                    <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
+                </app-header>
+
+                <div>
+                    <template is="dom-if" if="{{igual(menuSeleccionado.layout, 'tabla')}}" restamp>
+                        <kd-tabla
+                            id-campo="[[obtenerParametro(config.config, menuSeleccionado.tag, 'id_campo')]]"
+                            url="[[obtenerParametro(config.config, menuSeleccionado.tag, 'url')]]"
+                            columnas="[[obtenerParametro(config.config, menuSeleccionado.tag, 'cols')]]"
+                            editable="true"
+                        ></kd-tabla>
+                    </template>
+                </div>
+            </app-header-layout>
+        </app-drawer-layout>
+    </template>
+
+    <script src="kd-app.js"></script>
+</dom-module>

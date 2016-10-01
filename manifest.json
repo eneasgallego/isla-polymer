@@ -1,0 +1,6 @@
+{
+  "name": "isla-polymer",
+  "short_name": "isla-polymer",
+  "start_url": "/",
+  "display": "standalone"
+}

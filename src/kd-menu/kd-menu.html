@@ -1,0 +1,41 @@
+<!-- Otras dependencias importadas que vayamos a usar -->
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-menu/paper-menu.html">
+<link rel="import" href="../../bower_components/paper-menu/paper-submenu.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../bower_components/paper-styles/color.html">
+<link rel="import" href="../../bower_components/paper-styles/default-theme.html">
+<link rel="import" href="../../bower_components/paper-styles/shadow.html">
+<link rel="import" href="../../bower_components/paper-styles/typography.html">
+<link rel="import" href="../styles/shared-styles.html">
+
+<dom-module id="kd-menu">
+    <style include="shared-styles">
+        /* Reglas CSS para tu elemento */
+    </style>
+    <template>
+        <paper-menu selected="0" on-iron-select="onIronSelect">
+            <template is="dom-repeat" items="{{menu}}">
+                <template is="dom-if" if="{{isFinalMenu(item)}}">
+                    <paper-item tag="[[item]]">[[item.texto]]</paper-item>
+                </template>
+                <template is="dom-if" if="{{!isFinalMenu(item)}}">
+                    <paper-submenu>
+                        <paper-item class="menu-trigger" tag="[[item]]">[[item.texto]]</paper-item>
+                        <paper-menu class="menu-content">
+                            <template is="dom-repeat" items="{{item.menu}}" as="child">
+                                <paper-item tag="[[child]]">[[child.texto]]</paper-item>
+                            </template>
+                        </paper-menu>
+                    </paper-submenu>
+                </template>
+
+
+
+                <!-- <kd-menu-item submenu="[[submenu]]" texto="[[child.texto]]" tag="[[child.tag]]" on-accion="accion" menu="[[child.menu]]" ></kd-menu-item> -->
+            </template>
+        </paper-menu>
+    </template>
+</dom-module>
+
+<script src="kd-menu.js"></script>

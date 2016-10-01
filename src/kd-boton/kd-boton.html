@@ -1,0 +1,29 @@
+<!-- Otras dependencias importadas que vayamos a usar -->
+<link href="../../bower_components/polymer/polymer.html" rel="import">
+
+<dom-module id="kd-boton">
+    <style>
+        /* Reglas CSS para tu elemento */
+        a {
+            color: var(--kd-boton-color, black);
+            background-color: var(--kd-boton-background-color, white);
+            border: 1px solid var(--kd-boton-color);
+            padding: 2px 4px;
+            text-decoration: none;
+            @apply (--kd-boton-mixin);
+        }
+        a:hover {
+            color: var(--kd-boton-color-hover, white);
+            background-color: var(--kd-boton-background-color-hover, black);
+            border: 1px solid var(--kd-boton-color-hover);
+            @apply (--kd-boton-mixin-hover);
+        }
+    </style>
+    <template>
+        <a href="#!" on-click="accion">
+            <content></content>
+        </a>
+    </template>
+</dom-module>
+
+<script src="kd-boton.js"></script>

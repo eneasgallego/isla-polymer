@@ -1,0 +1,57 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
+
+<link rel="import" href="../../bower_components/paper-styles/color.html">
+<link rel="import" href="../../bower_components/paper-styles/default-theme.html">
+<link rel="import" href="../../bower_components/paper-styles/shadow.html">
+<link rel="import" href="../../bower_components/paper-styles/typography.html">
+
+<link rel="import" href="../behaviors/kd-base.html">
+
+<dom-module id="kd-combo">
+
+
+  <template>
+
+    <style>
+      /* local DOM styles go here */
+      :host {
+        display: inline-block;
+      }
+    </style>
+
+    <!-- local DOM goes here -->
+	<paper-dropdown-menu
+		id="menu"
+		label="[[texto]]"
+		on-focus="onFocus"
+		on-blur="onBlur"
+	>
+		<paper-listbox
+			id="list"
+			class="dropdown-content"
+			attr-for-selected="tag"
+			selected="{{value}}"
+			on-iron-select="onIronSelect"
+			on-focus="onFocus"
+		>
+			<template is="dom-repeat" items="{{dataset}}">
+				<paper-item
+					id$="[[getIdItem(item, fieldId)]]"
+					tag="[[obtenerParametro(item, fieldId)]]"
+					on-focus="onFocus"
+				>
+					[[obtenerParametro(item, fieldTexto)]]
+				</paper-item>
+			</template>
+		</paper-listbox>
+	</paper-dropdown-menu>
+  </template>
+
+  <script src="kd-combo.js"></script>
+
+</dom-module>
+

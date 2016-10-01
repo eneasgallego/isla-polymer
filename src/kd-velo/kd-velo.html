@@ -1,0 +1,41 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-spinner/paper-spinner.html">
+
+<dom-module id="kd-velo">
+
+
+    <template>
+
+        <style>
+            /* local DOM styles go here */
+            :host {
+                --paper-spinner-stroke-width: 10px;
+                --mixin-velo: {
+                     position: fixed;
+                     height: 100%;
+                     width: 100%;
+                    top: 0;
+                    left: 0
+                };
+                @apply(--mixin-velo);
+                text-align: center;
+            }
+            .velo {
+                @apply(--mixin-velo);
+                background-color: black;
+                opacity: 0.3;
+            }
+            paper-spinner {
+                margin-top: 10%;
+            }
+        </style>
+
+        <!-- local DOM goes here -->
+        <div class="velo">
+        </div>
+        <paper-spinner active></paper-spinner>
+    </template>
+
+    <script src="kd-velo.js"></script>
+
+</dom-module>

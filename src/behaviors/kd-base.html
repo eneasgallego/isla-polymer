@@ -1,0 +1,89 @@
+<script>
+    kdBaseBehavior = {
+        igual: function (a, b) {
+            return a == b;
+        },
+        sumarComparaciones: function () {
+            var ret;
+
+            for (var i = 0 ; i < arguments.length ; i++) {
+                ret = typeof(ret) === 'undefined' ? arguments[i] : ret && arguments[i];
+            }
+
+            return !!ret;
+        },
+        obtenerParametro: function(obj) {
+            var ret = obj;
+
+            for (var i = 1 ; i < arguments.length ; i++) {
+                ret = ret[arguments[i]];
+            }
+
+            return ret;
+        },
+        getQueryString: function (params) {
+            var queryParts = [];
+            var param;
+            var value;
+
+            for (param in params) {
+                value = params[param];
+                param = window.encodeURIComponent(param);
+
+                if (value !== null) {
+                    param += '=' + window.encodeURIComponent(value);
+                }
+
+                queryParts.push(param);
+            }
+
+            return queryParts.join('&');
+        },
+        buscarArray: function(path) {
+            var valor;
+            var campo;
+            if (arguments.length == 2) {
+                valor = arguments[1];
+            } else if (arguments.length > 2) {
+                campo = arguments[1];
+                valor = arguments[2];
+            }
+
+            var arr = this.get(path);
+
+            for (var i = 0 ; i < arr.length ; i++) {
+                var item = arr[i];
+
+                if 	((campo && item[campo] == valor) ||
+                    (!campo && ((typeof(valor) === 'function' && valor(item, i)) ||
+                    (typeof(valor) !== 'function' && valor == item)))) {
+                    return item;
+                }
+            }
+
+            return undefined;
+        }
+    };
+    Array.prototype.buscar = function() {
+        var valor;
+        var campo;
+        if (arguments.length == 1) {
+            valor = arguments[0];
+        } else if (arguments.length > 1) {
+            campo = arguments[0];
+            valor = arguments[1];
+        }
+
+        for (var i = 0 ; i < this.length ; i++) {
+            var item = this[i];
+
+            if 	((campo && item[campo] == valor) ||
+                    (!campo && ((typeof(valor) === 'function' && valor(item, i)) ||
+                    (typeof(valor) !== 'function' && valor == item)))) {
+                return item;
+            }
+        }
+
+        return undefined;
+    };
+</script>
