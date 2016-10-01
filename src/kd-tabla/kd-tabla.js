@@ -26,6 +26,10 @@ Polymer({
             type: Array,
             value: []
         },
+        filtrar: {
+            type: Boolean,
+            value: true
+        },
 
 
 
@@ -224,6 +228,9 @@ Polymer({
         }
 
         return ret;
+    },
+    filtrarCol: function(col) {
+        return typeof(col.filtro) === 'undefined' || col.filtro;
     },
     onRequest: function() {
         this.set('cargando', true);

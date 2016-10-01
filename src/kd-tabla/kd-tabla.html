@@ -16,6 +16,7 @@
 <link rel="import" href="../kd-velo/kd-velo.html">
 <link rel="import" href="../kd-combo/kd-combo.html">
 <link rel="import" href="../kd-checkbox/kd-checkbox.html">
+<link rel="import" href="../kd-panel-ocultable/kd-panel-ocultable.html">
 
 <link rel="import" href="../styles/shared-styles.html">
 
@@ -31,7 +32,50 @@
         </template>
         <iron-ajax id="ajaxFilas" url="[[url]]" last-response="{{rawData}}" on-request="onRequest" on-response="onResponse" auto></iron-ajax>
 
-        <paper-input id="filter" label="Nombre" on-value-changed="onFilter"></paper-input>
+        <template  is="dom-if" if="[[filtrar]]">
+            <kd-panel-ocultable titulo="Filtros">
+                <template is="dom-repeat" items="{{columnas}}" as="col">
+                    <template  is="dom-if" if="{{filtrarCol(col)}}">
+                        <template  is="dom-if" if="{{editarInput(col)}}">
+                            INPUT
+                            <!--                        <paper-input
+                                                        id="filter"
+                                                        label="Nombre"
+                                                        on-value-changed="onFilter"
+                                                    ></paper-input>
+                                                    -->
+                        </template>
+                        <template  is="dom-if" if="{{editarCombo(col)}}">
+                            COMBO
+                            <!--
+                            <kd-combo
+                                    value="{{obtenerParametro(item, col.campo)}}"
+                                    dataset="[[getDatasetCombo(datasetCombo, col)]]"
+                                    field-id="[[col.tipo.id]]"
+                                    field-texto="[[col.tipo.texto]]"
+                                    idfila$="[[obtenerParametro(item, idCampo)]]"
+                                    campo$="[[col.campo]]"
+                                    on-change="onGuardar"
+                                    on-blur="onBlur"
+                                    ></kd-combo>
+                                    -->
+                        </template>
+                        <template  is="dom-if" if="{{editarCheckbox(col)}}">
+                            CHECKBOX
+                            <!--
+                            <kd-checkbox
+                                    id="editar"
+                                    value="{{obtenerParametro(item, col.campo)}}"
+                                    idfila$="[[obtenerParametro(item, idCampo)]]"
+                                    campo$="[[col.campo]]"
+                                    on-change="onGuardar"
+                                    ></kd-checkbox>
+                                    -->
+                        </template>
+                    </template>
+                </template>
+            </kd-panel-ocultable>
+        </template>
 
         <table>
             <thead>
