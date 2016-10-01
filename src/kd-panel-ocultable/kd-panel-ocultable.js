@@ -9,6 +9,10 @@ Polymer({
         subtitulo: {
             type: String,
             value: ''
+        },
+        mostrar: {
+            type: Boolean,
+            value: false
         }
     },
     toggle: function() {

@@ -12,11 +12,13 @@
 <link rel="import" href="../../bower_components/paper-styles/typography.html">
 
 <link rel="import" href="../behaviors/kd-base.html">
+<link rel="import" href="../behaviors/kd-tabla-behavior.html">
 
 <link rel="import" href="../kd-velo/kd-velo.html">
 <link rel="import" href="../kd-combo/kd-combo.html">
 <link rel="import" href="../kd-checkbox/kd-checkbox.html">
 <link rel="import" href="../kd-panel-ocultable/kd-panel-ocultable.html">
+<link rel="import" href="../kd-filtros-tabla/kd-filtros-tabla.html">
 
 <link rel="import" href="../styles/shared-styles.html">
 
@@ -34,46 +36,11 @@
 
         <template  is="dom-if" if="[[filtrar]]">
             <kd-panel-ocultable titulo="Filtros">
-                <template is="dom-repeat" items="{{columnas}}" as="col">
-                    <template  is="dom-if" if="{{filtrarCol(col)}}">
-                        <template  is="dom-if" if="{{editarInput(col)}}">
-                            INPUT
-                            <!--                        <paper-input
-                                                        id="filter"
-                                                        label="Nombre"
-                                                        on-value-changed="onFilter"
-                                                    ></paper-input>
-                                                    -->
-                        </template>
-                        <template  is="dom-if" if="{{editarCombo(col)}}">
-                            COMBO
-                            <!--
-                            <kd-combo
-                                    value="{{obtenerParametro(item, col.campo)}}"
-                                    dataset="[[getDatasetCombo(datasetCombo, col)]]"
-                                    field-id="[[col.tipo.id]]"
-                                    field-texto="[[col.tipo.texto]]"
-                                    idfila$="[[obtenerParametro(item, idCampo)]]"
-                                    campo$="[[col.campo]]"
-                                    on-change="onGuardar"
-                                    on-blur="onBlur"
-                                    ></kd-combo>
-                                    -->
-                        </template>
-                        <template  is="dom-if" if="{{editarCheckbox(col)}}">
-                            CHECKBOX
-                            <!--
-                            <kd-checkbox
-                                    id="editar"
-                                    value="{{obtenerParametro(item, col.campo)}}"
-                                    idfila$="[[obtenerParametro(item, idCampo)]]"
-                                    campo$="[[col.campo]]"
-                                    on-change="onGuardar"
-                                    ></kd-checkbox>
-                                    -->
-                        </template>
-                    </template>
-                </template>
+                <kd-filtros-tabla
+                    id="filtros"
+                    columnas="[[columnas]]"
+                    on-filtrado="onFilter"
+                ></kd-filtros-tabla>
             </kd-panel-ocultable>
         </template>
 
@@ -119,27 +86,29 @@
                             <template  is="dom-if" if="{{editarCelda(celdaEditar, item, idCampo, col.campo)}}" restamp>
                                 <template  is="dom-if" if="{{editarInput(col)}}">
                                     <paper-input
-                                            id="editar"
-                                            type$="[[getTipoInput(col)]]"
-                                            value="{{obtenerParametro(item, col.campo)}}"
-                                            idfila$="[[obtenerParametro(item, idCampo)]]"
-                                            campo$="[[col.campo]]"
-                                            on-blur="onGuardar"
-                                            on-change="onGuardar"
-                                            on-focus="onFocusInput"
-                                            ></paper-input>
+                                        id="editar"
+                                        type$="[[getTipoInput(col)]]"
+                                        value="{{obtenerParametro(item, col.campo)}}"
+                                        idfila$="[[obtenerParametro(item, idCampo)]]"
+                                        campo$="[[col.campo]]"
+                                        on-blur="onGuardar"
+                                        on-change="onGuardar"
+                                        on-focus="onFocusInput"
+                                        on-load="onCreatedInput"
+                                    ></paper-input>
                                 </template>
                                 <template  is="dom-if" if="{{editarCombo(col)}}">
                                     <kd-combo
-                                            value="{{obtenerParametro(item, col.campo)}}"
-                                            dataset="[[getDatasetCombo(datasetCombo, col)]]"
-                                            field-id="[[col.tipo.id]]"
-                                            field-texto="[[col.tipo.texto]]"
-                                            idfila$="[[obtenerParametro(item, idCampo)]]"
-                                            campo$="[[col.campo]]"
-                                            on-change="onGuardar"
-                                            on-blur="onBlur"
-                                            ></kd-combo>
+                                        value="{{obtenerParametro(item, col.campo)}}"
+                                        dataset="[[getDatasetCombo(datasetCombo, col)]]"
+                                        field-id="[[col.tipo.id]]"
+                                        field-texto="[[col.tipo.texto]]"
+                                        idfila$="[[obtenerParametro(item, idCampo)]]"
+                                        campo$="[[col.campo]]"
+                                        on-change="onGuardar"
+                                        on-blur="onBlur"
+                                        on-load="onLoad"
+                                    ></kd-combo>
                                 </template>
                                 <template  is="dom-if" if="{{editarCheckbox(col)}}">
                                     <kd-checkbox

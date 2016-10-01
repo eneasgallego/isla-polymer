@@ -24,10 +24,18 @@
         </style>
 
         <!-- local DOM goes here -->
-        <paper-button on-click="toggle" toggles>[[titulo]]</paper-button>
+        <paper-button on-click="toggle" toggles>
+            [[titulo]]
+            <template  is="dom-if" if="[[mostrar]]">
+                <iron-icon icon="icons:arrow-drop-up" ></iron-icon>
+            </template>
+            <template  is="dom-if" if="[[!mostrar]]">
+                <iron-icon icon="icons:arrow-drop-down" ></iron-icon>
+            </template>
+        </paper-button>
         <span>[[subtitulo]]</span>
 
-        <iron-collapse id="collapse">
+        <iron-collapse id="collapse" opened="{{mostrar}}">
             <content></content>
         </iron-collapse>
     </template>

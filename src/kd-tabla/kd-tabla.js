@@ -1,6 +1,6 @@
 Polymer({
     is: 'kd-tabla',
-    behaviors: [kdBaseBehavior],
+    behaviors: [kdBaseBehavior, kdTablaBehavior],
     properties: {
         url: {
             type: String,
@@ -95,24 +95,6 @@ Polymer({
         }
 
         return ret;
-    },
-    editarInput: function(col) {
-        return col.tipo == 'string' || col.tipo == 'int' || !col.tipo;
-    },
-    getTipoInput: function(col) {
-        var ret = 'text';
-
-        if (col.tipo == 'int') {
-            ret = 'number';
-        }
-
-        return ret;
-    },
-    editarCombo: function(col) {
-        return typeof(col.tipo) === 'object' && col.tipo.tipo == 'object';
-    },
-    editarCheckbox: function(col) {
-        return col.tipo === 'bool';
     },
     getDatasetCombo: function(datasetCombo, col) {
         return datasetCombo[col.tipo.url];
@@ -229,9 +211,6 @@ Polymer({
 
         return ret;
     },
-    filtrarCol: function(col) {
-        return typeof(col.filtro) === 'undefined' || col.filtro;
-    },
     onRequest: function() {
         this.set('cargando', true);
     },
@@ -303,16 +282,10 @@ Polymer({
         });
     },
     onFilter: function (e) {
-        var filterText = e.currentTarget.value.toLowerCase();
         var items = this.get('rawData');
         if (items) {
-            items = items.filter(function(val) {
-                if (filterText) {
-                    return (val.nombrefabricas.toLowerCase()).indexOf(filterText) > -1;
-                } else {
-                    return true;
-                }
-            });
+            var filtros = this.$$('#filtros');
+            items = items.filter(filtros ? filtros.filtrar.bind(filtros) : function(){return true;});
             this.set('data', items);
         }
     },
@@ -354,7 +327,11 @@ Polymer({
                     this.$.ajaxEditar.set('body', this.getQueryString(params));
 
                     this.$.ajaxEditar.generateRequest();
+                } else {
+                    this.set('celdaEditar', null);
                 }
+            } else {
+                this.set('celdaEditar', null);
             }
         }
     }

@@ -1,0 +1,66 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<link rel="import" href="../../bower_components/app-layout/app-toolbar/app-toolbar.html">
+
+<link rel="import" href="../../bower_components/paper-styles/color.html">
+<link rel="import" href="../../bower_components/paper-styles/default-theme.html">
+<link rel="import" href="../../bower_components/paper-styles/shadow.html">
+<link rel="import" href="../../bower_components/paper-styles/typography.html">
+
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+
+<link rel="import" href="../behaviors/kd-base.html">
+<link rel="import" href="../behaviors/kd-tabla-behavior.html">
+
+<dom-module id="kd-filtros-tabla">
+    <template>
+        <style>
+            /* local DOM styles go here */
+            :host {
+            }
+        </style>
+
+        <!-- local DOM goes here -->
+        <template is="dom-repeat" items="{{columnas}}" as="col">
+            <template  is="dom-if" if="{{filtrarCol(col)}}">
+                <template  is="dom-if" if="{{editarInput(col)}}">
+                    <paper-input
+                        id$="{{generarIdFiltro(col)}}"
+                        label="[[col.texto]]"
+                        on-value-changed="onFilter"
+                    ></paper-input>
+                </template>
+                <template  is="dom-if" if="{{editarCombo(col)}}">
+                    COMBO
+                    <!--
+                    <kd-combo
+                            value="{{obtenerParametro(item, col.campo)}}"
+                            dataset="[[getDatasetCombo(datasetCombo, col)]]"
+                            field-id="[[col.tipo.id]]"
+                            field-texto="[[col.tipo.texto]]"
+                            idfila$="[[obtenerParametro(item, idCampo)]]"
+                            campo$="[[col.campo]]"
+                            on-change="onGuardar"
+                            on-blur="onBlur"
+                            ></kd-combo>
+                            -->
+                </template>
+                <template  is="dom-if" if="{{editarCheckbox(col)}}">
+                    CHECKBOX
+                    <!--
+                    <kd-checkbox
+                            id="editar"
+                            value="{{obtenerParametro(item, col.campo)}}"
+                            idfila$="[[obtenerParametro(item, idCampo)]]"
+                            campo$="[[col.campo]]"
+                            on-change="onGuardar"
+                            ></kd-checkbox>
+                            -->
+                </template>
+            </template>
+        </template>
+    </template>
+
+    <script src="kd-filtros-tabla.js"></script>
+</dom-module>

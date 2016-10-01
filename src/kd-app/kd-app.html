@@ -40,13 +40,45 @@
                 </app-header>
 
                 <div>
-                    <template is="dom-if" if="{{igual(menuSeleccionado.layout, 'tabla')}}" restamp>
+                    <template is="dom-if" if="{{igual(menuSeleccionado.tag, 'fabricas')}}">
                         <kd-tabla
-                            id-campo="[[obtenerParametro(config.config, menuSeleccionado.tag, 'id_campo')]]"
-                            url="[[obtenerParametro(config.config, menuSeleccionado.tag, 'url')]]"
-                            columnas="[[obtenerParametro(config.config, menuSeleccionado.tag, 'cols')]]"
-                            editable="true"
-                        ></kd-tabla>
+                                id-campo="[[config.config.fabricas.id_campo]]"
+                                url="[[config.config.fabricas.url]]"
+                                columnas="[[config.config.fabricas.cols]]"
+                                editable="true"
+                                ></kd-tabla>
+                    </template>
+                    <template is="dom-if" if="{{igual(menuSeleccionado.tag, 'materiales')}}">
+                        <kd-tabla
+                                id-campo="[[config.config.materiales.id_campo]]"
+                                url="[[config.config.materiales.url]]"
+                                columnas="[[config.config.materiales.cols]]"
+                                editable="true"
+                                ></kd-tabla>
+                    </template>
+                    <template is="dom-if" if="{{igual(menuSeleccionado.tag, 'materiales_necesita')}}">
+                        <kd-tabla
+                                id-campo="[[config.config.materiales_necesita.id_campo]]"
+                                url="[[config.config.materiales_necesita.url]]"
+                                columnas="[[config.config.materiales_necesita.cols]]"
+                                editable="true"
+                                ></kd-tabla>
+                    </template>
+                    <template is="dom-if" if="{{igual(menuSeleccionado.tag, 'tipos_pedido')}}">
+                        <kd-tabla
+                                id-campo="[[config.config.tipos_pedido.id_campo]]"
+                                url="[[config.config.tipos_pedido.url]]"
+                                columnas="[[config.config.tipos_pedido.cols]]"
+                                editable="true"
+                                ></kd-tabla>
+                    </template>
+                    <template is="dom-if" if="{{igual(menuSeleccionado.tag, 'pedidos')}}">
+                        <kd-tabla
+                                id-campo="[[config.config.pedidos.id_campo]]"
+                                url="[[config.config.pedidos.url]]"
+                                columnas="[[config.config.pedidos.cols]]"
+                                editable="true"
+                                ></kd-tabla>
                     </template>
                 </div>
             </app-header-layout>

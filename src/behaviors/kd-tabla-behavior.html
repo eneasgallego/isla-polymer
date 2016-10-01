@@ -1,0 +1,25 @@
+<script>
+    kdTablaBehavior = {
+        editarInput: function(col) {
+            return col.tipo == 'string' || col.tipo == 'int' || !col.tipo;
+        },
+        getTipoInput: function(col) {
+            var ret = 'text';
+
+            if (col.tipo == 'int') {
+                ret = 'number';
+            }
+
+            return ret;
+        },
+        editarCombo: function(col) {
+            return typeof(col.tipo) === 'object' && col.tipo.tipo == 'object';
+        },
+        editarCheckbox: function(col) {
+            return col.tipo === 'bool';
+        },
+        filtrarCol: function(col) {
+            return typeof(col.filtro) === 'undefined' || col.filtro;
+        }
+    };
+</script>

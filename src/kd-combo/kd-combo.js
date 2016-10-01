@@ -35,6 +35,9 @@ Polymer({
     ready: function() {
         this.focus();
     },
+    created: function() {
+        this.creado = false;
+    },
     getSelected: function (item, field, value) {
         return this.getValorDataset(item, field) == value;
     },
@@ -44,7 +47,11 @@ Polymer({
         }.bind(this), 100);
     },
     onIronSelect: function(e) {
-        this.fire('change');
+        if (this.creado) {
+            this.fire('change');
+        } else {
+            this.creado = true;
+        }
     },
     onDatasetChanged: function(e) {
         this.$.list.set('selected', this.get('value'));
