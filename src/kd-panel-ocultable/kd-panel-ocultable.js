@@ -10,12 +10,18 @@ Polymer({
             type: String,
             value: ''
         },
+        flotante: {
+            type: Boolean,
+            value: false
+        },
         mostrar: {
             type: Boolean,
             value: false,
-            observable: 'mostrarEvento',
             notify: true
         }
+    },
+    getClaseCollapse: function(flotante) {
+        return flotante ? 'flotante' : '';
     },
     toggle: function() {
         this.$.collapse.toggle();

@@ -21,6 +21,10 @@
             /* local DOM styles go here */
             :host {
             }
+            .flotante {
+                position: absolute;
+            }
+
         </style>
 
         <!-- local DOM goes here -->
@@ -35,7 +39,7 @@
         </paper-button>
         <span>[[subtitulo]]</span>
 
-        <iron-collapse id="collapse" opened="{{mostrar}}">
+        <iron-collapse id="collapse" opened="{{mostrar}}" class$="[[getClaseCollapse(flotante)]]">
             <content></content>
         </iron-collapse>
     </template>

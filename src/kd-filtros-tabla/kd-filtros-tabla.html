@@ -21,6 +21,7 @@
             /* local DOM styles go here */
             :host {
             }
+
         </style>
 
         <!-- local DOM goes here -->
@@ -28,14 +29,14 @@
             <template is="dom-repeat" items="{{columnas}}" as="col">
                 <template  is="dom-if" if="{{filtrarCol(col)}}">
                     <template  is="dom-if" if="{{editarInput(col)}}">
-                        <template  is="dom-if" if="{{!editarInputInt(col)}}" restamp>
+                        <template  is="dom-if" if="{{!editarInputInt(col)}}">
                             <paper-input
                                 id$="{{generarIdFiltro(col)}}"
                                 label="[[col.texto]]"
                                 on-value-changed="onFilter"
                             ></paper-input>
                         </template>
-                        <template is="dom-if" if="{{editarInputInt(col)}}" restamp>
+                        <template is="dom-if" if="{{editarInputInt(col)}}">
                             <kd-filtro-int
                                 id$="{{generarIdFiltro(col)}}"
                                 class="ocultable"
