@@ -66,6 +66,9 @@
         mostrarEvento: function(e) {
             console.log(this);
             console.log(e);
+        },
+        onBubble: function(e) {
+            this.fire(e.type);
         }
     };
     Array.prototype.buscar = function() {

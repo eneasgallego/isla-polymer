@@ -15,6 +15,7 @@
 
 <link rel="import" href="../kd-filtro-int/kd-filtro-int.html">
 <link rel="import" href="../kd-filtro-obj/kd-filtro-obj.html">
+<link rel="import" href="../kd-filtro-bool/kd-filtro-bool.html">
 
 <dom-module id="kd-filtros-tabla">
     <template>
@@ -55,21 +56,19 @@
                             dataset-combo="{{obtenerParametro(datasetCombo, col.tipo.url)}}"
                             field-id="[[col.tipo.id]]"
                             field-texto="[[col.tipo.texto]]"
+                            sel-abs
                             on-change="onFilter"
                             on-abrir="onAbrirFiltro"
                         ></kd-filtro-obj>
                     </template>
                     <template  is="dom-if" if="{{editarCheckbox(col)}}">
-                        CHECKBOX
-                        <!--
-                        <kd-checkbox
-                                id="editar"
-                                value="{{obtenerParametro(item, col.campo)}}"
-                                idfila$="[[obtenerParametro(item, idCampo)]]"
-                                campo$="[[col.campo]]"
-                                on-change="onGuardar"
-                                ></kd-checkbox>
-                                -->
+                        <kd-filtro-bool
+                            id$="{{generarIdFiltro(col)}}"
+                            class="ocultable"
+                            texto="[[col.texto]]"
+                            on-change="onFilter"
+                            on-abrir="onAbrirFiltro"
+                        ></kd-filtro-bool>
                     </template>
                 </template>
             </template>

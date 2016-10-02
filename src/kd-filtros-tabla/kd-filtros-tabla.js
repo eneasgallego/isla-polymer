@@ -28,6 +28,8 @@ Polymer({
                     }
                 } else if (this.editarCombo(col) && val.length) {
                     return !!~val.indexOf(item[col.campo]);
+                } else if (this.editarCheckbox(col) && val.length) {
+                    return input.filtrar(item[col.campo]);
                 }
             }
 

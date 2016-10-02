@@ -127,8 +127,5 @@ Polymer({
     },
     onIronDeselect: function(e) {
         this.fireChange();
-    },
-    onBubble: function(e) {
-        this.fire(e.type);
     }
 });

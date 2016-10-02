@@ -1,0 +1,42 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/iron-label/iron-label.html">
+
+<link rel="import" href="../../bower_components/paper-styles/color.html">
+<link rel="import" href="../../bower_components/paper-styles/default-theme.html">
+<link rel="import" href="../../bower_components/paper-styles/shadow.html">
+<link rel="import" href="../../bower_components/paper-styles/typography.html">
+
+<link rel="import" href="../behaviors/kd-base.html">
+
+<link rel="import" href="../kd-filtro-obj/kd-filtro-obj.html">
+
+<dom-module id="kd-filtro-bool">
+    <template>
+
+        <style>
+            /* local DOM styles go here */
+            :host {
+                display: inline-block;
+            }
+        </style>
+
+        <!-- local DOM goes here -->
+        <kd-filtro-obj
+            texto="[[texto]]"
+            dataset-combo="{{datasetCombo}}"
+            value="{{value}}"
+            on-change="onBubble"
+            on-abrir="onBubble"
+            on-cerrar="onBubble"
+        ></kd-filtro-obj>
+    </template>
+
+    <script src="kd-filtro-bool.js"></script>
+
+</dom-module>
+

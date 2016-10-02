@@ -18,7 +18,10 @@ Polymer({
             type: Boolean,
             value: false
         },
-        value: Array,
+        value: {
+            type: Array,
+            notify: true
+        },
         values: {
             type: Array,
             computed: 'getValues(datasetCombo, fieldId, fieldTexto)'
@@ -34,6 +37,10 @@ Polymer({
         fieldTexto: {
             type: String,
             value: 'texto'
+        },
+        selAbs: {
+            type: Boolean,
+            value: false
         }
     },
     ready: function() {
@@ -41,23 +48,24 @@ Polymer({
         //this.changeValues();
     },
     getDefaultValues: function(fieldId, fieldTexto) {
-        fieldId = typeof(fieldId) === 'undefined' ? this.get('fieldId') : fieldId ;
-        fieldTexto = typeof(fieldTexto) === 'undefined' ? this.get('fieldTexto') : fieldTexto ;
-
-        var crearValue = function(id, texto) {
-            var ret = {};
-
-            ret[fieldId] = id;
-            ret[fieldTexto] = texto;
-            ret.unico = true;
-
-            return ret;
-        }.bind(this);
-
         var ret = [];
 
-        ret.push(crearValue('ninguno', 'Ninguno'));
-        ret.push(crearValue('todos', 'Todos'));
+        if (this.get('selAbs')) {
+            fieldId = typeof(fieldId) === 'undefined' ? this.get('fieldId') : fieldId ;
+            fieldTexto = typeof(fieldTexto) === 'undefined' ? this.get('fieldTexto') : fieldTexto ;
+
+            var crearValue = function(id, texto) {
+                var ret = {};
+
+                ret[fieldId] = id;
+                ret[fieldTexto] = texto;
+
+                return ret;
+            }.bind(this);
+
+            ret.push(crearValue('ninguno', 'Ninguno'));
+            ret.push(crearValue('todos', 'Todos'));
+        }
 
         return ret;
     },
@@ -69,9 +77,6 @@ Polymer({
         }
 
         return values;
-    },
-    filtrar: function(val) {
-        return !!~this.get('value').indexOf(val);
     },
     getTextoCompleto: function() {
         var ret = this.get('texto');
@@ -108,14 +113,17 @@ Polymer({
             }
 
             this.set('value', value);
+        } else {
+            var item = this.get('datasetCombo').buscar(this.get('fieldId'), tag);
+
+            if (item.unico) {
+                this.set('value', [tag]);
+            }
         }
 
         this.fireChange();
     },
     onIronDeselect: function(e) {
         this.fireChange();
-    },
-    onBubble: function(e) {
-        this.fire(e.type);
     }
 });
