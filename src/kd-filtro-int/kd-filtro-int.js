@@ -45,6 +45,7 @@ Polymer({
             },
             igual: {
                 value: 0,
+                unico: true,
                 filtrar: function(a) {
                     return a == this.value
                 },
@@ -93,15 +94,29 @@ Polymer({
         this.fire('change');
     },
     onIronSelect: function(e, details) {
-        if (details.item.getAttribute('tag') == 'igual') {
+        var tag = details.item.getAttribute('tag');
+        var val = this.get('values')[tag];
+        if (val.unico) {
             if (this.get('value').length > 1) {
-                this.set('value', ['igual']);
+                this.set('value', [tag]);
             }
         } else {
-            var index = this.get('value').indexOf('igual');
-            if (!!~index) {
-                this.splice('value', index, 1);
-            }
+            var limpiar = function() {
+                var rep = false;
+                for (var i = 0 ; i < this.get('value').length ; i++) {
+                    var t = this.get('value')[i];
+                    var v = this.get('values')[t];
+
+                    if (v.unico) {
+                        this.splice('value', i, 1);
+                        rep = true;
+                        break;
+                    }
+                }
+                rep && limpiar();
+            }.bind(this);
+
+            limpiar();
         }
         this.fireChange();
     },
