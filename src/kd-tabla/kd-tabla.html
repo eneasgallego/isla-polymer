@@ -34,11 +34,12 @@
         </template>
         <iron-ajax id="ajaxFilas" url="[[url]]" last-response="{{rawData}}" on-request="onRequest" on-response="onResponse" auto></iron-ajax>
 
-        <template  is="dom-if" if="[[filtrar]]">
+        <template is="dom-if" if="[[filtrar]]">
             <kd-panel-ocultable titulo="Filtros">
                 <kd-filtros-tabla
                     id="filtros"
                     columnas="[[columnas]]"
+                    dataset="{{datasetCombo}}"
                     on-filtrado="onFilter"
                 ></kd-filtros-tabla>
             </kd-panel-ocultable>

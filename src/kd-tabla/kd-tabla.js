@@ -57,7 +57,8 @@ Polymer({
         },
         datasetCombo: {
             type: Object,
-            value: {}
+            value: {},
+            observer: 'mostrarEvento'
         }
     },
     getDatasets: function(columnas) {
@@ -228,6 +229,8 @@ Polymer({
         datasetCombo[ironRequest.url] = e.detail.response;
         this.set('datasetCombo', datasetCombo);
         this.recargar();
+        var filtros = this.$$('#filtros');
+        filtros && filtros.set('datasetCombo', datasetCombo);
         this.onResponse();
     },
     onRawDataChanged: function(e) {

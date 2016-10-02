@@ -5,6 +5,10 @@ Polymer({
         columnas: {
             type: Array,
             value: []
+        },
+        datasetCombo: {
+            type: Object,
+            value: {}
         }
     },
     generarIdFiltro: function(col) {
@@ -16,13 +20,14 @@ Polymer({
             var input = this.$$('#' + this.generarIdFiltro(col));
             if (input) {
                 var val = input.get('value');
-
                 if (this.editarInput(col)) {
                     if (this.getTipoInput(col) == 'text' && val) {
                         return !!~('' + item[col.campo]).toUpperCase().indexOf(('' + val).toUpperCase());
                     } else if (this.getTipoInput(col) == 'number' && val.length) {
                         return input.filtrar(item[col.campo]);
                     }
+                } else if (this.editarCombo(col) && val.length) {
+                    return !!~val.indexOf(item[col.campo]);
                 }
             }
 
