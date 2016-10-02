@@ -1,0 +1,54 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/iron-label/iron-label.html">
+
+<link rel="import" href="../../bower_components/paper-styles/color.html">
+<link rel="import" href="../../bower_components/paper-styles/default-theme.html">
+<link rel="import" href="../../bower_components/paper-styles/shadow.html">
+<link rel="import" href="../../bower_components/paper-styles/typography.html">
+
+<link rel="import" href="../behaviors/kd-base.html">
+
+<link rel="import" href="../kd-panel-ocultable/kd-panel-ocultable.html">
+
+<dom-module id="kd-filtro-obj">
+    <template>
+
+        <style>
+            /* local DOM styles go here */
+            :host {
+                display: inline-block;
+            }
+        </style>
+
+        <!-- local DOM goes here -->
+        <kd-panel-ocultable
+            titulo="[[textoLabel]]"
+            mostrar="{{mostrar}}"
+            flotante
+            on-abrir="onBubble"
+            on-cerrar="onBubble">
+            <paper-listbox
+                id="list"
+                class="dropdown-content"
+                attr-for-selected="tag"
+                selected-values="{{value}}"
+                multi
+                on-iron-select="onIronSelect"
+                on-iron-deselect="onIronDeselect"
+            >
+                <template is="dom-repeat" items="{{values}}">
+                    <paper-item tag="[[obtenerParametro(item,fieldId)]]">[[obtenerParametro(item,fieldTexto)]]</paper-item>
+                </template>
+            </paper-listbox>
+        </kd-panel-ocultable>
+    </template>
+
+    <script src="kd-filtro-obj.js"></script>
+
+</dom-module>
+
