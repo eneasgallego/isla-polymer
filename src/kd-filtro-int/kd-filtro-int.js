@@ -14,42 +14,45 @@ Polymer({
             type: String,
             computed: 'getTextoLabel(texto, textoCompleto)'
         },
-        value: {
-            type: Array,
-            value: []
+        mostrar: {
+            type: Boolean,
+            value: false,
+            observable: 'mostrarEvento'
         },
-        values: {
-            type: Object,
-            value: {
-                menor: {
-                    value: 0,
-                    filtrar: function(a) {
-                        return a < this.value
-                    },
-                    getTexto: function() {
-                        return '<' + this.value;
-                    }
+        value: Array,
+        values: Object
+    },
+    ready: function() {
+        this.set('value', []);
+        this.set('values', {
+            menor: {
+                value: 0,
+                filtrar: function(a) {
+                    return a < this.value
                 },
-                mayor: {
-                    value: 0,
-                    filtrar: function(a) {
-                        return a > this.value
-                    },
-                    getTexto: function() {
-                        return '>' + this.value;
-                    }
+                getTexto: function() {
+                    return '<' + this.value;
+                }
+            },
+            mayor: {
+                value: 0,
+                filtrar: function(a) {
+                    return a > this.value
                 },
-                igual: {
-                    value: 0,
-                    filtrar: function(a) {
-                        return a == this.value
-                    },
-                    getTexto: function() {
-                        return '=' + this.value;
-                    }
+                getTexto: function() {
+                    return '>' + this.value;
+                }
+            },
+            igual: {
+                value: 0,
+                filtrar: function(a) {
+                    return a == this.value
+                },
+                getTexto: function() {
+                    return '=' + this.value;
                 }
             }
-        }
+        });
     },
     getTextoCompleto: function() {
         var ret = this.get('texto');
@@ -110,5 +113,8 @@ Polymer({
     },
     onChange: function(e) {
         this.fireChange();
+    },
+    onBubble: function(e) {
+        this.fire(e.type);
     }
 });

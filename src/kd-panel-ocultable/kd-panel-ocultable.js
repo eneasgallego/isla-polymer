@@ -12,10 +12,13 @@ Polymer({
         },
         mostrar: {
             type: Boolean,
-            value: false
+            value: false,
+            observable: 'mostrarEvento',
+            notify: true
         }
     },
     toggle: function() {
         this.$.collapse.toggle();
+        this.fire(this.get('mostrar') ? 'abrir' : 'cerrar');
     }
 });

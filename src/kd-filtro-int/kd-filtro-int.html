@@ -26,7 +26,11 @@
         </style>
 
         <!-- local DOM goes here -->
-        <kd-panel-ocultable titulo="[[textoLabel]]">
+        <kd-panel-ocultable
+            titulo="[[textoLabel]]"
+            mostrar="{{mostrar}}"
+            on-abrir="onBubble"
+            on-cerrar="onBubble">
             <paper-listbox
                     id="list"
                     class="dropdown-content"

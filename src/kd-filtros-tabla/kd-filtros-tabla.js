@@ -41,5 +41,17 @@ Polymer({
     },
     onFilter: function(e) {
         this.fire('filtrado')
+    },
+    onAbrirFiltro: function(e) {
+        var el;
+        while (el = this.$$('.ocultable:not(.mirado)')) {
+            el.classList.add('mirado');
+            if (el != e.currentTarget) {
+                el.set('mostrar', false);
+            }
+        }
+        while (el = this.$$('.ocultable.mirado')) {
+            el.classList.remove('mirado');
+        }
     }
 });
