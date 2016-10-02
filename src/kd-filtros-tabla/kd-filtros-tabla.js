@@ -20,6 +20,8 @@ Polymer({
                 if (this.editarInput(col)) {
                     if (this.getTipoInput(col) == 'text' && val) {
                         return !!~('' + item[col.campo]).toUpperCase().indexOf(('' + val).toUpperCase());
+                    } else if (this.getTipoInput(col) == 'number' && val.length) {
+                        return input.filtrar(item[col.campo]);
                     }
                 }
             }

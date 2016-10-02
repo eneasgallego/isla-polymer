@@ -12,6 +12,9 @@
 
             return ret;
         },
+        editarInputInt: function(col) {
+            return col.tipo == 'int';
+        },
         editarCombo: function(col) {
             return typeof(col.tipo) === 'object' && col.tipo.tipo == 'object';
         },
