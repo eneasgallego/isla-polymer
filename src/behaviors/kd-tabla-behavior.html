@@ -1,5 +1,74 @@
 <script>
     kdTablaBehavior = {
+        properties: {
+            columnas: {
+                type: Array,
+                value: function(){return []}
+            }
+        },
+        observers: ['observerColumnas(columnas.splices)'],
+        observerColumnas: function(columnas) {
+            for (var i = 0 ; i < columnas.length ; i++) {
+                var col = this.parseCol(columnas[i]);
+                columnas[i] = col;
+            }
+        },
+        getDefaultCol: function() {
+            return {
+                campo: '',
+                texto: '',
+                tipo: this.getDefaultTipo()
+            };
+        },
+        getDefaultTipo: function() {
+            return {
+                tipo: '',
+                id: 'id',
+                texto: 'texto',
+                url: '',
+                getValorDefecto: function(){
+                    var ret;
+
+                    if (this.tipo == 'string') {
+                        ret = '';
+                    } else if (this.tipo == 'int') {
+                        ret = 0;
+                    } else if (this.tipo == 'obj') {
+                        ret = 0;
+                    } else if (this.tipo == 'bool') {
+                        ret = false;
+                    }
+
+                    return ret;
+                }
+            };
+        },
+        parseTipo: function(tipo) {
+            var ret = this.getDefaultTipo();
+
+            if (typeof(tipo) === 'string') {
+                ret.tipo = tipo;
+            } else {
+                for (var key in col) {
+                    ret[i] = col[i];
+                }
+            }
+
+            return ret;
+        },
+        parseCol: function(col) {
+            var ret = this.getDefaultCol();
+
+            for (var key in col) {
+                if (key == 'tipo') {
+                    ret[i] = this.parseTipo(col[i]);
+                } else {
+                    ret[i] = col[i];
+                }
+            }
+
+            return ret;
+        },
         editarInput: function(col) {
             return col.tipo == 'string' || col.tipo == 'int' || !col.tipo;
         },

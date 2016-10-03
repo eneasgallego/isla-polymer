@@ -6,10 +6,6 @@ Polymer({
             type: Boolean,
             value: false
         },
-        columnas: {
-            type: Array,
-            value: function(){return []}
-        },
         orden: {
             type: Array,
             value: function(){return []}
