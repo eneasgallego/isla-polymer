@@ -1,0 +1,51 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<link rel="import" href="../behaviors/kd-base.html">
+
+<dom-module id="kd-app">
+    <template>
+        <h3>Frutas</h3>
+        <template is="dom-repeat" items="{{fruits}}">
+            <p>
+                La fruta {{index}} es {{item.name}}
+                y es de color {{item.color}} <br>
+                <input value="{{item.name}}" on-change="onChange"/><br>
+                <button on-tap="setFavorite">favorita</button>
+            </p>
+        </template>
+        Mi favorita es: {{fruitFavorite}}
+    </template>
+    <script>
+        Polymer({
+            is: 'kd-app',
+            properties: {
+                fruits: {
+                    type: Array,
+                    value: [
+                        {'name': 'cerezas', 'color': 'rojo'},
+                        {'name': 'mandarinas', 'color': 'naranja'}
+                    ]
+                },
+                fruitFavorite: {
+                    type: String,
+                    value: "ninguna"
+                }
+            },
+            observers: ['observeFruits(fruits.splices)'],
+            observeFruits: function() {
+                console.log(this.fruits);
+            },
+            onChange: function(e) {
+                var fruit = e.model.item;
+                //fruit.name = e.currentTarget.value;
+                this.set('fruits.' + e.model.index + '.name', e.currentTarget.value);
+            },
+            setFavorite: function(e) {
+                var fruit = e.model.item;
+                this.fruitFavorite = fruit.name;
+                /* La mejor manera de entender qué es la instancia model es consologueándola */
+                console.log('e', e.model);
+            }
+        });
+    </script>
+</dom-module>

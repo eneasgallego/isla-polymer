@@ -14,17 +14,17 @@
         /* Reglas CSS para tu elemento */
     </style>
     <template>
-        <paper-menu selected="0" on-iron-select="onIronSelect">
+        <paper-menu selected="{{menuSeleccionado}}" on-iron-select="onIronSelect" attr-for-selected="tag">
             <template is="dom-repeat" items="{{menu}}">
                 <template is="dom-if" if="{{isFinalMenu(item)}}">
-                    <paper-item tag="[[item]]">[[item.texto]]</paper-item>
+                    <paper-item tag="[[item.tag]]">[[item.texto]]</paper-item>
                 </template>
                 <template is="dom-if" if="{{!isFinalMenu(item)}}">
                     <paper-submenu>
                         <paper-item class="menu-trigger" tag="[[item]]">[[item.texto]]</paper-item>
-                        <paper-menu class="menu-content">
+                        <paper-menu selected="{{menuSeleccionado}}" class="menu-content" attr-for-selected="tag">
                             <template is="dom-repeat" items="{{item.menu}}" as="child">
-                                <paper-item tag="[[child]]">[[child.texto]]</paper-item>
+                                <paper-item tag="[[child.tag]]">[[child.texto]]</paper-item>
                             </template>
                         </paper-menu>
                     </paper-submenu>

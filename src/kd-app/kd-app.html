@@ -31,7 +31,7 @@
         <!-- local DOM goes here -->
         <app-drawer-layout>
             <app-drawer>
-                <kd-menu menu="[[config.menu]]" on-accion="onAccion"></kd-menu>
+                <kd-menu menu-seleccionado="{{menuSeleccionado}}" menu="[[config.menu]]"></kd-menu>
             </app-drawer>
 
             <app-header-layout>
@@ -40,7 +40,7 @@
                 </app-header>
 
                 <div>
-                    <template is="dom-if" if="{{igual(menuSeleccionado.tag, 'fabricas')}}">
+                    <template is="dom-if" if="[[igual(menuSeleccionado, 'fabricas')]]">
                         <kd-tabla
                                 id-campo="[[config.config.fabricas.id_campo]]"
                                 url="[[config.config.fabricas.url]]"
@@ -48,7 +48,7 @@
                                 editable="true"
                                 ></kd-tabla>
                     </template>
-                    <template is="dom-if" if="{{igual(menuSeleccionado.tag, 'materiales')}}">
+                    <template is="dom-if" if="[[igual(menuSeleccionado, 'materiales')]]">
                         <kd-tabla
                                 id-campo="[[config.config.materiales.id_campo]]"
                                 url="[[config.config.materiales.url]]"
@@ -56,7 +56,7 @@
                                 editable="true"
                                 ></kd-tabla>
                     </template>
-                    <template is="dom-if" if="{{igual(menuSeleccionado.tag, 'materiales_necesita')}}">
+                    <template is="dom-if" if="[[igual(menuSeleccionado, 'materiales_necesita')]]">
                         <kd-tabla
                                 id-campo="[[config.config.materiales_necesita.id_campo]]"
                                 url="[[config.config.materiales_necesita.url]]"
@@ -64,7 +64,7 @@
                                 editable="true"
                                 ></kd-tabla>
                     </template>
-                    <template is="dom-if" if="{{igual(menuSeleccionado.tag, 'tipos_pedido')}}">
+                    <template is="dom-if" if="[[igual(menuSeleccionado, 'tipos_pedido')]]">
                         <kd-tabla
                                 id-campo="[[config.config.tipos_pedido.id_campo]]"
                                 url="[[config.config.tipos_pedido.url]]"
@@ -72,7 +72,7 @@
                                 editable="true"
                                 ></kd-tabla>
                     </template>
-                    <template is="dom-if" if="{{igual(menuSeleccionado.tag, 'pedidos')}}">
+                    <template is="dom-if" if="[[igual(menuSeleccionado, 'pedidos')]]">
                         <kd-tabla
                                 id-campo="[[config.config.pedidos.id_campo]]"
                                 url="[[config.config.pedidos.url]]"

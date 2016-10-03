@@ -322,11 +322,8 @@ Polymer({
             }
         },
         menuSeleccionado: {
-            type: Object,
-            value: {}
+            type: String,
+            value: 'inicio'
         }
-    },
-    onAccion: function (e, menu) {
-        this.set('menuSeleccionado', menu);
     }
 });
