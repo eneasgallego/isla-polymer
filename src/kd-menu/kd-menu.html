@@ -14,7 +14,7 @@
         /* Reglas CSS para tu elemento */
     </style>
     <template>
-        <paper-menu selected="{{menuSeleccionado}}" on-iron-select="onIronSelect" attr-for-selected="tag">
+        <paper-menu selected="{{menuSeleccionado}}" attr-for-selected="tag">
             <template is="dom-repeat" items="{{menu}}">
                 <template is="dom-if" if="{{isFinalMenu(item)}}">
                     <paper-item tag="[[item.tag]]">[[item.texto]]</paper-item>
@@ -29,10 +29,6 @@
                         </paper-menu>
                     </paper-submenu>
                 </template>
-
-
-
-                <!-- <kd-menu-item submenu="[[submenu]]" texto="[[child.texto]]" tag="[[child.tag]]" on-accion="accion" menu="[[child.menu]]" ></kd-menu-item> -->
             </template>
         </paper-menu>
     </template>

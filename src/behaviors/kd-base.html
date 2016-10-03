@@ -71,6 +71,15 @@
             this.fire(e.type);
         }
     };
+    String.prototype.reemplazar = function(a, b) {
+        var ret = this;
+
+        while(!!~ret.indexOf(a)) {
+            ret = ret.replace(a, b);
+        }
+
+        return ret;
+    };
     Array.prototype.buscar = function() {
         var valor;
         var campo;

@@ -28,104 +28,132 @@
     </style>
 
     <template>
-        <iron-ajax id="ajaxEditar" url="[[url]]" on-request="onRequest" on-response="onResponseEditar"></iron-ajax>
-        <template is="dom-repeat" items="{{getDatasets(columnas)}}">
-            <iron-ajax url="[[item]]" on-request="onRequest" on-response="onResponseDatasetCombo" auto></iron-ajax>
-        </template>
-        <iron-ajax id="ajaxFilas" url="[[url]]" last-response="{{rawData}}" on-request="onRequest" on-response="onResponse" auto></iron-ajax>
+        <!--
+                <iron-ajax id="ajaxEditar" url="[[url]]" on-request="onRequest" on-response="onResponseEditar"></iron-ajax>
+                <template is="dom-repeat" items="{{getDatasets(columnas)}}">
+                    <iron-ajax url="[[item]]" on-request="onRequest" on-response="onResponseDatasetCombo" auto></iron-ajax>
+                </template>
+                <iron-ajax id="ajaxFilas" url="[[url]]" last-response="{{rawData}}" on-request="onRequest" on-response="onResponse" auto></iron-ajax>
 
-        <template is="dom-if" if="[[filtrar]]">
-            <kd-panel-ocultable titulo="Filtros">
-                <kd-filtros-tabla
-                    id="filtros"
-                    columnas="[[columnas]]"
-                    dataset="{{datasetCombo}}"
-                    on-filtrado="onFilter"
-                ></kd-filtros-tabla>
-            </kd-panel-ocultable>
-        </template>
 
+                <template is="dom-if" if="[[filtrar]]">
+                    <kd-panel-ocultable titulo="Filtros">
+                        <kd-filtros-tabla
+                            id="filtros"
+                            columnas="[[columnas]]"
+                            dataset="{{datasetCombo}}"
+                            on-filtrado="onFilter"
+                        ></kd-filtros-tabla>
+                    </kd-panel-ocultable>
+                </template>
+
+                <table>
+                    <thead>
+                    <tr>
+                        <template is="dom-repeat" items="{{columnas}}">
+                            <th
+                                campo$="[[item.campo]]"
+                                on-click="onSort"
+                            >
+                                [[getTextoColumna(item)]]
+                                <span>
+                                    <template  is="dom-if" if="{{mostrarOrdenAsc(orden, item)}}">
+                                        <iron-icon
+                                            on-click="quitarOrden"
+                                            campo$="[[item.campo]]"
+                                            icon="icons:arrow-drop-up"
+                                        ></iron-icon>
+                                    </template>
+                                    <template  is="dom-if" if="{{mostrarOrdenDesc(orden, item)}}">
+                                        <iron-icon
+                                            on-click="quitarOrden"
+                                            campo$="[[item.campo]]"
+                                            icon="icons:arrow-drop-down"
+                                        ></iron-icon>
+                                    </template>
+                                </span>
+                            </th>
+                        </template>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <template is="dom-repeat" items="[[sortedData]]">
+                        <tr>
+                            <template is="dom-repeat" items="{{columnas}}" as="col">
+                                <td idfila$="[[obtenerParametro(item, idCampo)]]" campo$="[[col.campo]]" on-click="onClickCelda">
+
+                                    <template  is="dom-if" if="{{!editarCelda(celdaEditar, item, idCampo, col.campo)}}" restamp>
+                                        [[getValorCeldaTexto(item, col, datasetCombo)]]
+                                    </template>
+
+                                    <template  is="dom-if" if="{{editarCelda(celdaEditar, item, idCampo, col.campo)}}" restamp>
+                                        <template  is="dom-if" if="{{editarInput(col)}}">
+                                            <paper-input
+                                                id="editar"
+                                                type$="[[getTipoInput(col)]]"
+                                                value="{{obtenerParametro(item, col.campo)}}"
+                                                idfila$="[[obtenerParametro(item, idCampo)]]"
+                                                campo$="[[col.campo]]"
+                                                on-blur="onGuardar"
+                                                on-change="onGuardar"
+                                                on-focus="onFocusInput"
+                                                on-load="onCreatedInput"
+                                            ></paper-input>
+                                        </template>
+                                        <template  is="dom-if" if="{{editarCombo(col)}}">
+                                            <kd-combo
+                                                value="{{obtenerParametro(item, col.campo)}}"
+                                                dataset="[[getDatasetCombo(datasetCombo, col)]]"
+                                                field-id="[[col.tipo.id]]"
+                                                field-texto="[[col.tipo.texto]]"
+                                                idfila$="[[obtenerParametro(item, idCampo)]]"
+                                                campo$="[[col.campo]]"
+                                                on-change="onGuardar"
+                                                on-blur="onBlur"
+                                                on-load="onLoad"
+                                            ></kd-combo>
+                                        </template>
+                                        <template  is="dom-if" if="{{editarCheckbox(col)}}">
+                                            <kd-checkbox
+                                                    id="editar"
+                                                    value="{{obtenerParametro(item, col.campo)}}"
+                                                    idfila$="[[obtenerParametro(item, idCampo)]]"
+                                                    campo$="[[col.campo]]"
+                                                    on-change="onGuardar"
+                                            ></kd-checkbox>
+                                        </template>
+                                    </template>
+
+                                </td>
+                            </template>
+                        </tr>
+                    </template>
+                    </tbody>
+                </table>
+        -->
         <table>
             <thead>
             <tr>
-                <template is="dom-repeat" items="{{columnas}}">
-                    <th
-                        campo$="[[item.campo]]"
-                        on-click="onSort"
-                    >
-                        [[getTextoColumna(item)]]
-                        <span>
-                            <template  is="dom-if" if="{{mostrarOrdenAsc(orden, item)}}">
-                                <iron-icon
-                                    on-click="quitarOrden"
-                                    campo$="[[item.campo]]"
-                                    icon="icons:arrow-drop-up"
-                                ></iron-icon>
-                            </template>
-                            <template  is="dom-if" if="{{mostrarOrdenDesc(orden, item)}}">
-                                <iron-icon
-                                    on-click="quitarOrden"
-                                    campo$="[[item.campo]]"
-                                    icon="icons:arrow-drop-down"
-                                ></iron-icon>
-                            </template>
-                        </span>
+                <template id="repeatHeader" is="dom-repeat" items="[[columnas]]">
+                    <th on-click="onSort" >
+                        [[mostrarTextoColumna(item)]]
+                        <template  is="dom-if" if="[[mostrarOrden(orden.*, item, 1)]]">
+                            <iron-icon
+                                on-click="onQuitarOrden"
+                                icon="icons:arrow-drop-up"
+                            ></iron-icon>
+                        </template>
+                        <template  is="dom-if" if="[[mostrarOrden(orden.*, item, 0)]]">
+                            <iron-icon
+                                on-click="onQuitarOrden"
+                                icon="icons:arrow-drop-down"
+                            ></iron-icon>
+                        </template>
                     </th>
                 </template>
             </tr>
             </thead>
             <tbody>
-            <template is="dom-repeat" items="[[sortedData]]">
-                <tr>
-                    <template is="dom-repeat" items="{{columnas}}" as="col">
-                        <td idfila$="[[obtenerParametro(item, idCampo)]]" campo$="[[col.campo]]" on-click="onClickCelda">
-
-                            <template  is="dom-if" if="{{!editarCelda(celdaEditar, item, idCampo, col.campo)}}" restamp>
-                                [[getValorCeldaTexto(item, col, datasetCombo)]]
-                            </template>
-
-                            <template  is="dom-if" if="{{editarCelda(celdaEditar, item, idCampo, col.campo)}}" restamp>
-                                <template  is="dom-if" if="{{editarInput(col)}}">
-                                    <paper-input
-                                        id="editar"
-                                        type$="[[getTipoInput(col)]]"
-                                        value="{{obtenerParametro(item, col.campo)}}"
-                                        idfila$="[[obtenerParametro(item, idCampo)]]"
-                                        campo$="[[col.campo]]"
-                                        on-blur="onGuardar"
-                                        on-change="onGuardar"
-                                        on-focus="onFocusInput"
-                                        on-load="onCreatedInput"
-                                    ></paper-input>
-                                </template>
-                                <template  is="dom-if" if="{{editarCombo(col)}}">
-                                    <kd-combo
-                                        value="{{obtenerParametro(item, col.campo)}}"
-                                        dataset="[[getDatasetCombo(datasetCombo, col)]]"
-                                        field-id="[[col.tipo.id]]"
-                                        field-texto="[[col.tipo.texto]]"
-                                        idfila$="[[obtenerParametro(item, idCampo)]]"
-                                        campo$="[[col.campo]]"
-                                        on-change="onGuardar"
-                                        on-blur="onBlur"
-                                        on-load="onLoad"
-                                    ></kd-combo>
-                                </template>
-                                <template  is="dom-if" if="{{editarCheckbox(col)}}">
-                                    <kd-checkbox
-                                            id="editar"
-                                            value="{{obtenerParametro(item, col.campo)}}"
-                                            idfila$="[[obtenerParametro(item, idCampo)]]"
-                                            campo$="[[col.campo]]"
-                                            on-change="onGuardar"
-                                    ></kd-checkbox>
-                                </template>
-                            </template>
-
-                        </td>
-                    </template>
-                </tr>
-            </template>
             </tbody>
         </table>
         <kd-velo class$="[[mostrarVelo(cargando)]]"></kd-velo>
